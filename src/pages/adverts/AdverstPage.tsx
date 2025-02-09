@@ -1,3 +1,5 @@
+import './AdverstPage.css';
+
 const adverts =[
     {
         id: "83a3cd69-9230-464b-ae15-c728940e7658",
@@ -26,7 +28,7 @@ const adverts =[
 
 function AdvertsPage() {
     return (
-    <div>
+    <div className="AdvertsPage">
         <h1>Página de Anuncios</h1>
         <ul>
             {adverts.map((advert) => (

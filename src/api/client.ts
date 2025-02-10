@@ -1,5 +1,7 @@
 import axios from "axios";
 
 export const client = axios.create({
-    baseURL: 'http://localhost:3001/',
+    baseURL: import.meta.env.VITE_APU_BASE_URL,
 });
+
+client.interceptors.response.use((response) => response.data);

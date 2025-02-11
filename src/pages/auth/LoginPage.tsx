@@ -1,23 +1,26 @@
 import { login } from "./service";
+//import { useNavigate } from "react-router-dom";
 
 
 function LoginPage(){
-
+    //const navigate = useNavigate()
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+       
+        try {
+            const formData = new FormData(event.currentTarget);
+            const email = formData.get("email") as string;
+            const password = formData.get("password") as string;
 
-        try{
+            const response = await login({ email, password });
 
-        //const formData = new FormData(event.currentTarget);
-        const response = await login({
-        email: event.target.email.value,
-        password: event.target.password.value,
-      });
-
-         console.log(response);
-         
-        }catch (error){
-         console.error(error);
+            if (response.accessToken) {
+                console.log("Login exitoso. Redirigiendo...");
+               // navigate("/adverts"); // Redirige a AdvertsPage
+            }
+        }
+        catch (error) {
+            console.error("Error en el login:", error);
         }
     };
     //const { email, password } = credentials;

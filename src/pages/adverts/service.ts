@@ -1,7 +1,7 @@
 import { client } from "../../api/client";
 import { Advert } from "../adverts/types";
 
-const advertsUrl = "/api/v1/adverts"
+const advertsUrl = "/v1/adverts"
 
 
 export const getLatestAdverts = (): Promise<Advert[]> =>

@@ -1,7 +1,8 @@
-import AdvertsPage from "./pages/adverts/AdverstPage";
+//import AdvertsPage from "./pages/adverts/AdverstPage";
+import LoginPage from "./pages/auth/LoginPage";
 
 function App() {
-  return <AdvertsPage/>;
+  return <LoginPage/>;
 }
 
 export default App;

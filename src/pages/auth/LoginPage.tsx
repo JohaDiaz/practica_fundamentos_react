@@ -1,19 +1,26 @@
 import { login } from "./service";
 
+
 function LoginPage(){
+
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try{
+
+        //const formData = new FormData(event.currentTarget);
         const response = await login({
-            email: event.target.email.value,
-            password: event.target.password.value,
-        });
+        email: event.target.email.value,
+        password: event.target.password.value,
+      });
+
          console.log(response);
+         
         }catch (error){
          console.error(error);
         }
     };
+    //const { email, password } = credentials;
 
     return (
     <div>

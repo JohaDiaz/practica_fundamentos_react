@@ -8,5 +8,4 @@ export const getLatestAdverts = (): Promise<Advert[]> =>
     {  
         return client.get<Advert[]>(advertsUrl).then((response) => response.data);
         
-        console.log(response.data);
     };

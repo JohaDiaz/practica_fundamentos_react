@@ -1,4 +1,4 @@
-import { client } from "../../api/client";
+import { client,  setAuthorizationHeader} from "../../api/client";
 import type { Credentials, Login } from "./types";
 
 export const login = async (credentials: Credentials) => {
@@ -6,6 +6,8 @@ export const login = async (credentials: Credentials) => {
     console.log("Enviando datos:", credentials);
 
     const response = await client.post<Login>("/auth/login", credentials);
+    const { accessToken } = response.data;
+    setAuthorizationHeader(accessToken);
    
     console.log("Response: ", response)
     console.log("Datos de la API: ", response.data)

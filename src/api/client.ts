@@ -5,3 +5,11 @@ export const client = axios.create({
 });
 
 //client.interceptors.response.use((response) => response.data);
+
+export const setAuthorizationHeader = (accessToken: string) => {
+    client.defaults.headers["Authorization"] = `Bearer ${accessToken}`;
+  };
+  
+  export const removeAuthorizationHeader = () => {
+    delete client.defaults.headers["Authorization"];
+  }; 

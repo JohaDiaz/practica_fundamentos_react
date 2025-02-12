@@ -1,8 +1,13 @@
 import { login } from "./service";
+import { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 
 
+
 function LoginPage(){
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
     //const navigate = useNavigate()
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -25,19 +30,29 @@ function LoginPage(){
     };
     //const { email, password } = credentials;
 
+    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value);
+    };
+
+    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(event.target.value);
+    };
+
     return (
+
+    
     <div>
         <h1>Loggin Page</h1>
         <form onSubmit={handleSubmit}>
             <label>
                 Username:
-                <input type="email" name="email"/>
+                <input type="email" name="email" value={username} onChange ={handleEmailChange} />
             </label>
             <label>
                 Password:
-                <input type="password" name="password"/>
+                <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
             </label>
-            <button type="submit">
+            <button type="submit" disabled>
                 Log in
             </button>
         </form>

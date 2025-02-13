@@ -3,11 +3,16 @@ import { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 
 
+//Falta código para el cambio de página con el login
 
-function LoginPage(){
+
+interface Props {
+    onLogin: () => void;
+}
+
+function LoginPage({onLogin}: Props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
     //const navigate = useNavigate()
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -23,6 +28,7 @@ function LoginPage(){
                 console.log("Login exitoso. Redirigiendo...");
                // navigate("/adverts"); // Redirige a AdvertsPage
             }
+            onLogin();
         }
         catch (error) {
             console.error("Error en el login:", error);
@@ -38,6 +44,8 @@ function LoginPage(){
         setPassword(event.target.value);
     };
 
+    const isDisabled = !username || !password;
+
     return (
 
     
@@ -46,13 +54,13 @@ function LoginPage(){
         <form onSubmit={handleSubmit}>
             <label>
                 Username:
-                <input type="email" name="email" value={username} onChange ={handleEmailChange} />
+                <input type="email" name="email" value={username} onChange ={handleEmailChange}/>
             </label>
             <label>
                 Password:
                 <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
             </label>
-            <button type="submit" disabled>
+            <button type="submit" disabled={isDisabled}>
                 Log in
             </button>
         </form>

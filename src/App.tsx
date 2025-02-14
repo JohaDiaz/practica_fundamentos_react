@@ -20,7 +20,11 @@ function App( {defaultIsLogged} : Props) {
   const handleLogout = () => {
     setIsLogged(false);
   } 
-  return isLogged ? <AdvertsPage onLogout = {handleLogout}/> : <LoginPage onLogin = {handleLogin}/>;
+  return isLogged ? (
+  <AdvertsPage onLogout = {handleLogout} isLogged ={isLogged}/> 
+  ) : (
+  <LoginPage onLogin = {handleLogin}/>
+    );
   
 }
 

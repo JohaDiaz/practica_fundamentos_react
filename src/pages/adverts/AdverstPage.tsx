@@ -3,9 +3,9 @@ import { getLatestAdverts } from "./service";
 import { useEffect, useState } from "react";
 import { Advert } from "./types"
 import Layout from '../../commponents/layout/Layout';
-import { HeaderProps } from '../../commponents/layout/Header';
 
-function AdvertsPage(props: HeaderProps) {
+
+function AdvertsPage() {
     const [adverts, setAdverts] = useState<Advert[]>([]);
 
     useEffect(() => { 
@@ -24,7 +24,7 @@ function AdvertsPage(props: HeaderProps) {
     },[]);
   
     return (
-        <Layout title="Nuevos anuncios" {...props}>
+        <Layout title="Nuevos anuncios" >
             <div className="AdvertsPage">
                 <h1>Página de Anuncios</h1>
                 <ul>

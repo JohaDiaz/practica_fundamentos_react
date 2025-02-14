@@ -1,12 +1,10 @@
 import { logout } from "../../pages/auth/service";
+import { useAuth } from "../../pages/auth/context";
 
 
-export interface HeaderProps{
-    onLogout: () => void;
-    isLogged: boolean;
-}
+export default function Header() {
+const { isLogged, onLogout } = useAuth();
 
-export default function Header({ onLogout, isLogged }: HeaderProps) {
     const handleLogoutClick = async () => {
         await logout();
         onLogout();

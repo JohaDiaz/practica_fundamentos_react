@@ -1,18 +1,15 @@
 import { login } from "./service";
 import { useState } from "react";
+import { useAuth } from "./context";
 //import { useNavigate } from "react-router-dom";
-
 
 //Falta código para el cambio de página con el login
 
 
-interface Props {
-    onLogin: () => void;
-}
-
-function LoginPage({onLogin}: Props){
+function LoginPage(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const {onLogin} = useAuth();
     //const navigate = useNavigate()
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

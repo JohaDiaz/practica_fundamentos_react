@@ -8,10 +8,10 @@ import { useAuth } from "./pages/auth/context";
 
 function App() {
 
-  const { isLogged, onLogout }  = useAuth();
+  const { isLogged }  = useAuth();
 
   return isLogged ? (
-    <AdvertsPage onLogout = {onLogout} isLogged ={isLogged}/> 
+    <AdvertsPage /> 
   ) : (
     <LoginPage />
     );

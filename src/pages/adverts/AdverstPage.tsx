@@ -2,15 +2,8 @@ import './AdverstPage.css';
 import { getLatestAdverts } from "./service";
 import { useEffect, useState } from "react";
 import { Advert } from "./types"
-import { logout } from "../auth/service" 
 
-
-
-interface Props {
-    onLogout: () => void
-}
-
-function AdvertsPage({ onLogout }: Props) {
+function AdvertsPage() {
     const [adverts, setAdverts] = useState<Advert[]>([]);
 
     useEffect(() => { 
@@ -27,11 +20,6 @@ function AdvertsPage({ onLogout }: Props) {
     }
         getAdverts();
     },[]);
-
-    const handleLogoutClick = async () => {
-        await logout();
-        onLogout();
-    };
   
     return (
 
@@ -42,9 +30,6 @@ function AdvertsPage({ onLogout }: Props) {
                 <li key={advert.id}>{advert.name}</li>
                 ))}
         </ul>
-        <button onClick={handleLogoutClick}>
-                Log out
-        </button>
     </div>
     );
 }

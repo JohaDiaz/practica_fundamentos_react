@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoginPage from "./pages/auth/LoginPage";
 import AdvertsPage from "./pages/adverts/AdverstPage";
 
+
 interface Props{
   defaultIsLogged: boolean;
 }

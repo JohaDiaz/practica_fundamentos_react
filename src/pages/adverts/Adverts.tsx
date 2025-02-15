@@ -5,10 +5,11 @@ interface Props {
 }
 
 const Advert = ({ advert }: Props) => {
-    const { name, sale, price, tags } = advert;
+    const { name, sale, price, tags, id } = advert;
     return (
         <article>
             <div>
+                <div>{id}</div>
                 <div>{name}</div>
                 <div>{sale}</div>
                 <div>{price}</div>

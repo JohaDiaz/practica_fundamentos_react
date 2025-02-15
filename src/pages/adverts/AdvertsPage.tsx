@@ -4,6 +4,7 @@ import { getLatestAdverts } from "./service";
 import { useEffect, useState } from "react";
 import { Advert } from "./types"
 import Layout from '../../commponents/layout/Layout';
+import { Link } from 'react-router-dom';
 
 const EmptyList = () => (
     <div>
@@ -36,7 +37,9 @@ function AdvertsPage() {
                 <ul>
                     {adverts.map((advert) => (
                         <li key={advert.id}>
+                            <Link to={`/advert/${advert.id}`}>
                             <AdvertItem advert = {advert}/>
+                            </Link>
                         </li>
                         ))}
                 </ul>

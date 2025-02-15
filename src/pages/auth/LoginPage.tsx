@@ -1,7 +1,7 @@
 import { login } from "./service";
 import { useState } from "react";
 import { useAuth } from "./context";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //Falta código para el cambio de página con el login
 
@@ -10,7 +10,7 @@ function LoginPage(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const {onLogin} = useAuth();
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
        
@@ -23,7 +23,7 @@ function LoginPage(){
 
             if (response.accessToken) {
                 console.log("Login exitoso. Redirigiendo...");
-               // navigate("/adverts"); // Redirige a AdvertsPage
+                navigate("/advertsPage");
             }
             onLogin();
         }

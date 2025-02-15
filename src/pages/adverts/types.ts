@@ -1,7 +1,6 @@
 export interface Advert {
     id: string;
     name: string;
-    owner?: string;
     sale: boolean;
     price: number;
     tags: Tag[];

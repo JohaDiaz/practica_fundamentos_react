@@ -14,12 +14,12 @@ export const login = async (credentials: Credentials) => {
     console.log("Response: ", response)
     console.log("Datos de la API: ", response.data)
    
-    if (response.data.accessToken) {
+   if (response.data.accessToken) {
         localStorage.setItem("token", response.data.accessToken);
         console.log("Token almacenado:", response.data.accessToken);
-    } else {
+   } else {
         console.error("Error: No se recibió un accessToken.");
-    }
+   }
     return response.data;
     
 };

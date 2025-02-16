@@ -1,10 +1,8 @@
 import { login } from "./service";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "./context";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AxiosError } from "axios";
-
-//Falta código para el cambio de página con el login
 
 
 function LoginPage(){
@@ -13,10 +11,22 @@ function LoginPage(){
     const [password, setPassword] = useState("");
     const [error, setError] = useState<{ message: string} | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false); 
     const {onLogin} = useAuth();
     const navigate = useNavigate()
 
     console.log(location);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('username');
+        const storedToken = localStorage.getItem('accessToken');
+        
+        if (storedUser && storedToken) {
+            onLogin(); 
+        }
+    }, [onLogin, navigate]);
+
+
 
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -32,6 +42,16 @@ function LoginPage(){
             if (response.accessToken) {
                 console.log("Login exitoso. Redirigiendo...");
                 navigate("/advertsPage");
+
+                if (rememberMe) {
+                    localStorage.setItem('username', email);
+                    localStorage.setItem('accessToken', response.accessToken);
+                }else {
+                    sessionStorage.setItem("username", email);
+                    sessionStorage.setItem("accessToken", response.accessToken);
+                  }
+
+                navigate("/advertsPage");
             }
             onLogin();
             const to = location.state?.from ?? "/advertsPage";
@@ -42,7 +62,7 @@ function LoginPage(){
                 setError({message: error.response?.data?.message ?? "" });
             }
         } finally {
-        setIsLoading(true);
+            setIsLoading(true);
         }   
     };
     //const { email, password } = credentials;
@@ -54,6 +74,11 @@ function LoginPage(){
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
+
+    const handleRememberMeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRememberMe(event.target.checked); 
+    };
+
 
     const isDisabled = !username || !password || isLoading;
 
@@ -71,6 +96,16 @@ function LoginPage(){
                 Password:
                 <input type="password" name="password" value={password} onChange={handlePasswordChange}/>
             </label>
+            <label> 
+                <input
+                    name="checkbox"
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={handleRememberMeChange}
+                />
+                Remember Me
+            </label>
+           
             <button type="submit" disabled={isDisabled}>
                 Log in
             </button>

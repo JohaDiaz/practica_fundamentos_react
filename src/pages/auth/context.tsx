@@ -25,6 +25,8 @@ export function AuthProvider({defaultIsLogged, children}: Props){
     }  
   
     const handleLogout = () => {
+      localStorage.removeItem("username");
+      localStorage.removeItem("accessToken");
       setIsLogged(false);
     } 
 

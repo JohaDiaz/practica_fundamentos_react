@@ -8,17 +8,20 @@ export default function AuthButton() {
 
   const handleLogoutClick = async () => {
     await logout();
+
+    localStorage.removeItem("username");
+    localStorage.removeItem("accessToken");
+  
     onLogout();
   };
 
   return isLogged ? (
-    <Link to={`/login`}>
-    <button onClick={handleLogoutClick} >Logout</button>
-    </Link>
+    <button onClick={handleLogoutClick} className="btn btn-danger">
+      Logout
+    </button>
   ) : (
     <Link to={`/login`}>
-    <button color="blue">Login</button>
+      <button className="btn btn-primary">Login</button>
     </Link>
   );
 }
-

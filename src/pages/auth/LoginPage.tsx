@@ -2,6 +2,7 @@ import { login } from "./service";
 import { useState } from "react";
 import { useAuth } from "./context";
 import { useNavigate, useLocation } from "react-router-dom";
+import { AxiosError } from "axios";
 
 //Falta código para el cambio de página con el login
 
@@ -10,6 +11,8 @@ function LoginPage(){
     const location =useLocation()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState<{ message: string} | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
     const {onLogin} = useAuth();
     const navigate = useNavigate()
 
@@ -19,12 +22,13 @@ function LoginPage(){
         event.preventDefault();
        
         try {
+            setIsLoading(true);
             const formData = new FormData(event.currentTarget);
             const email = formData.get("email") as string;
             const password = formData.get("password") as string;
 
             const response = await login({ email, password });
-
+            
             if (response.accessToken) {
                 console.log("Login exitoso. Redirigiendo...");
                 navigate("/advertsPage");
@@ -32,9 +36,14 @@ function LoginPage(){
             onLogin();
             const to = location.state?.from ?? "/advertsPage";
             navigate(to, { replace: true});
-        }
-        catch (error) {
-            console.error("Error en el login:", error);
+        }   catch (error) {
+            setIsLoading(false)
+            if(error instanceof AxiosError){
+                console.log(error);
+                setError({message: error.response?.data?.message ?? "" });
+            }
+        } finally {
+            setIsLoading(true);
         }
     };
     //const { email, password } = credentials;
@@ -47,7 +56,7 @@ function LoginPage(){
         setPassword(event.target.value);
     };
 
-    const isDisabled = !username || !password;
+    const isDisabled = !username || !password || isLoading;
 
     return (
 
@@ -66,9 +75,10 @@ function LoginPage(){
             <button type="submit" disabled={isDisabled}>
                 Log in
             </button>
+            {error && <div onClick={()=> setError(null)}>{error.message}</div>}
         </form>
     </div> 
-    )
+    );
 }
 
 export default LoginPage;

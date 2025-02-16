@@ -37,14 +37,13 @@ function LoginPage(){
             const to = location.state?.from ?? "/advertsPage";
             navigate(to, { replace: true});
         }   catch (error) {
-            setIsLoading(false)
             if(error instanceof AxiosError){
                 console.log(error);
                 setError({message: error.response?.data?.message ?? "" });
             }
         } finally {
-            setIsLoading(true);
-        }
+        setIsLoading(true);
+        }   
     };
     //const { email, password } = credentials;
 
@@ -75,7 +74,9 @@ function LoginPage(){
             <button type="submit" disabled={isDisabled}>
                 Log in
             </button>
-            {error && <div onClick={()=> setError(null)}>{error.message}</div>}
+            {error && (
+            <div onClick={()=> setError(null)}>{error.message}</div>
+            )}
         </form>
     </div> 
     );

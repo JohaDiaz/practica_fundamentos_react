@@ -1,5 +1,5 @@
 import { client } from "../../api/client";
-import { Advert } from "../adverts/types";
+import { Advert, CreateAdvertContent } from "../adverts/types";
 
 
 const advertsUrl = "/v1/adverts";
@@ -12,7 +12,14 @@ export const getLatestAdverts = async (): Promise<Advert[]> =>
         
     };
 
-//export const createAdverts = async (advert: AdvertContent) => {
-    //const response = await.post<Advert[]>(advertsUrl, advert);
-   // return response.data;
-//}
+export const createAdvert = async (advert: CreateAdvertContent) => {
+    const response = await client.post<Advert[]>(advertsUrl, advert);
+    return response.data;
+}
+
+export const getAdvert = async (id: string) => {
+  const url = `${advertsUrl}/${id}`;
+  const response = await client.get<Advert>(url);
+  return response.data;
+  
+};

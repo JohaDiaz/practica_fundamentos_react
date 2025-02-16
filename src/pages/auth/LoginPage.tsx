@@ -1,16 +1,20 @@
 import { login } from "./service";
 import { useState } from "react";
 import { useAuth } from "./context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 //Falta código para el cambio de página con el login
 
 
 function LoginPage(){
+    const location =useLocation()
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const {onLogin} = useAuth();
     const navigate = useNavigate()
+
+    console.log(location);
+
     const handleSubmit  = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
        
@@ -26,6 +30,8 @@ function LoginPage(){
                 navigate("/advertsPage");
             }
             onLogin();
+            const to = location.state?.from ?? "/advertsPage";
+            navigate(to, { replace: true});
         }
         catch (error) {
             console.error("Error en el login:", error);
